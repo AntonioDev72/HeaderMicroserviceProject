@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import productRoutes from './routes/productRoutes.js';
 import personRoutes from './routes/personRoutes.js';
+import globalErrorHandler from './controllers/errorController.js';
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,8 @@ const connectionString = process.env.MONGO_URI;
 
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/people', personRoutes);
+
+app.use(globalErrorHandler);
 
 mongoose.connect(connectionString);
 
